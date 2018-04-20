@@ -1,6 +1,7 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
@@ -17,6 +18,7 @@
             top: 0;
             bottom: 0;
         }
+
     </style>
 
 </head>
@@ -27,8 +29,14 @@
 
     <script>
         var options = {
-            center: [30, -26],
-            zoom: 2
+            center: [47.59, -122.3],
+            zoom: 12,
+            minZoom: 10,
+            maxZoom: 16,
+            maxBounds: [
+                [47.87, -121.77],
+                [47.31, -122.74]
+            ]
         };
         var map = L.map('map', options);
 
@@ -40,6 +48,8 @@
             ext: 'png'
         }).addTo(map);
         // JavaScript goes here
+
     </script>
 </body>
+
 </html>
