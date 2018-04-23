@@ -15,10 +15,14 @@
    $.when(
      $.getJSON('data/public-art.json'),
      $.getJSON('data/seattle-neighborhoods.json'),
-   ).done(function (publicArt, seattleNeighborhoods) {
+     $.getJSON('data/seattle-parks.json'),
+     $.getJSON('data/bike-routes.json'),
+   ).done(function (publicArt, seattleNeighborhoods, parks, bikeRoutes) {
 
      L.geoJson(publicArt).addTo(map);
      L.geoJson(seattleNeighborhoods).addTo(map);
+     L.geoJson(parks).addTo(map);
+     L.geoJson(bikeRoutes).addTo(map);
 
 
    });
