@@ -10,6 +10,7 @@ This map project ...
 * bike routes - [Seattle Open Data - Existing Bike Facilities](https://data-seattlecitygis.opendata.arcgis.com/datasets/existing-bike-facilities/data?geometry=-122.505%2C47.626%2C-122.085%2C47.707)
 
 ### Data processing
+* Mapshaper command line (-clip) used to trim large dataset of neighborhood polygons of the greater Seattle area to the proper city limit. 
 
 ### Authors
 
