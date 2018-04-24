@@ -123,6 +123,7 @@
     var colorMap = {
       'Sculpture': 'green',
       'Sculptures': 'green',
+      'Mural': 'black',
       'Sound Installation': 'blue',
       'Structure': 'purple'
     }
