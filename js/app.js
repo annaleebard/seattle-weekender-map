@@ -1,14 +1,8 @@
  (function () {
 
    var options = {
-     //  center: [47.59, -122.3],
-     //  zoom: 12,
-     //  minZoom: 10,
-     //  maxZoom: 16,
-     //  maxBounds: [
-     //    [47.87, -121.77],
-     //    [47.31, -122.74]
-     //  ]
+     zoomSnap: .1,
+     zoomDelta: .5
    };
 
    var map = L.map('map', options);
@@ -41,34 +35,35 @@
      opacity: .4
    }
 
-  // deferred promises to load data
+   // deferred promises to load data
    $.when(
      $.getJSON('data/seattle-neighborhoods-clipped.geojson'),
      $.getJSON('data/seattle-parks.json'),
      $.getJSON('data/bike-routes.json'),
      $.getJSON('data/public-art.json')
    ).done(function (seattleNeighborhoods, parks, bikeRoutes, publicArt) {
-     
+
      drawMap(seattleNeighborhoods, parks, bikeRoutes, publicArt)
 
    });
 
    function drawMap(seattleNeighborhoods, parks, bikeRoutes, publicArt) {
 
-    // draw neighborhoods first
-    var neighborhoods = L.geoJson(seattleNeighborhoods, {
-      style: neighborhoodOptions
-    }).addTo(map);
+     // draw neighborhoods first
+     var neighborhoods = L.geoJson(seattleNeighborhoods, {
+       style: neighborhoodOptions
+     }).addTo(map);
 
-    // fit map bounds to extent of neighborhoods and limit zoom
-    map.fitBounds(neighborhoods.getBounds());
+     // fit map bounds to extent of neighborhoods and limit zoom
+     map.fitBounds(neighborhoods.getBounds());
 
-    // get the current zoom level
-    var currentZoom = map.getZoom();
+     // get the current zoom level
+     var currentZoom = map.getZoom();
 
-    // set the min and max zoom controls
-    map.setMaxZoom(currentZoom + 3);
-    map.setMinZoom(currentZoom - 3);
+     // set the min and max zoom controls
+     map.setMaxZoom(currentZoom + 4);
+     map.setMinZoom(currentZoom);
+     map.setMaxBounds(map.getBounds());
 
 
      L.geoJson(parks, {
@@ -84,6 +79,7 @@
      var artLayer = L.geoJson(publicArt);
 
      markers.addLayer(artLayer);
+
      map.addLayer(markers);
 
 
