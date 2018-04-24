@@ -1,6 +1,6 @@
 # Seattle Weekender Map
 
-This map project ...
+Seattle Washington is known for a handful of iconic tourist attractions including the Space Needle and Pike Place Market. However, Seattle is more than a handful of well known attractions. Every neighborhood in the city has it's own charm bursting with parks and public art. This map highlights these assets while visualizing bike route information. The perfect weekend is waiting for you in Seattle, use this weekender map to curate your own experience!  
 
 ## Data sources
 
