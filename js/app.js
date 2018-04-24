@@ -35,6 +35,16 @@
      opacity: .4
    }
 
+   var CustomIcon = L.Icon.extend({
+    options: {
+      iconSize:     [40, 40],
+      shadowSize:   [50, 64],
+      iconAnchor:   [22, 94],
+      shadowAnchor: [4, 62],
+      popupAnchor:  [-3, -76]
+    }
+  });
+
    // deferred promises to load data
    $.when(
      $.getJSON('data/seattle-neighborhoods-clipped.geojson'),
@@ -61,7 +71,7 @@
      var currentZoom = map.getZoom();
 
      // set the min and max zoom controls
-     map.setMaxZoom(currentZoom + 4);
+     map.setMaxZoom(currentZoom + 5);
      map.setMinZoom(currentZoom);
      map.setMaxBounds(map.getBounds());
 
@@ -76,11 +86,47 @@
 
      var markers = L.markerClusterGroup();
 
-     var artLayer = L.geoJson(publicArt);
+     var artLayer = L.geoJson(publicArt, {
+       pointToLayer: function (feature, ll) {
+         // use icons instead of default
+         return L.circleMarker(ll, {
+           radius: 2,
+           color: getColor(feature.properties.classifica),
+           fillOpacity: 1
+          }).addTo(map);
+       },
+       filter: function(feature) {
+         // filter some out to narrow map focus
+         if (feature.properties.classifica != "Environments" ||
+            feature.properties.classifica != "Environment" ||
+            feature.properties.classifica != "Infrastructure"
+            ) return feature
+       }
+     });
 
      markers.addLayer(artLayer);
 
-     map.addLayer(markers);
+    //  map.addLayer(markers);
+    artLayer.addTo(map)
+
+   }
+
+   function getColor(type) {
+     console.log(type)
+
+    var colorMap = {
+      'Sculpture': 'green',
+      'Sculptures': 'green',
+      'Sound Installation': 'blue',
+      'Structure': 'purple'
+    }
+    if(colorMap[type]) {
+      return colorMap[type]
+    }
+
+    return 'yellow'
+
+
 
    }
 
