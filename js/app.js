@@ -10,13 +10,27 @@
        [47.31, -122.74]
      ]
    };
+
    var map = L.map('map', options);
 
    var neighborhoodOptions = {
     fillOpacity: 0,
-    color: '#55bcc9',
-    weight: 3.5,
+    color: '#9bbff4',
+    weight: 2,
     opacity: .7
+}
+
+    var parkOptions = {
+      fillOpacity: .8,
+      color: '#bbdaa4',
+      weight: 3.5,
+      opacity: .7
+    }
+
+var bikeOptions = {
+  color: '#f18d00',
+  weight: 2,
+  opacity: .8
 }
 
    $.when(
@@ -27,11 +41,15 @@
    ).done(function (publicArt, seattleNeighborhoods, parks, bikeRoutes) {
 
      L.geoJson(publicArt).addTo(map);
+
+     L.geoJson(parks, {
+      style: parkOptions}).addTo(map);
+     
      L.geoJson(seattleNeighborhoods, {
-       style: neighborhoodOptions
-     }).addTo(map);
-     L.geoJson(parks).addTo(map);
-     L.geoJson(bikeRoutes).addTo(map);
+       style: neighborhoodOptions}).addTo(map);
+
+     L.geoJson(bikeRoutes, {
+       style: bikeOptions}).addTo(map);
 
 
    });
