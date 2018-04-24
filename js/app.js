@@ -61,8 +61,38 @@
 
      // draw neighborhoods first
      var neighborhoods = L.geoJson(seattleNeighborhoods, {
-       style: neighborhoodOptions
+       style: neighborhoodOptions,
+       onEachFeature (featuer,layer){
+        layer.on({
+            mouseover: highlightNeighborhood,
+            mouseout: resetStyle
+            
+        });
+    }
      }).addTo(map);
+     //highlight neighborhood polygon when moused over
+     function highlightNeighborhood(e) {
+      var layer = e.target;
+
+      layer.setStyle({
+        weight: 3,
+        color: 'yellow',
+        dashArray: '',
+        fillOpacity: 0.7
+      });
+    }
+
+    //reset neighborhood polygon style on mouse out
+    function resetStyle(e) {
+      var layer = e.target;
+
+      layer.setStyle({
+        weight: 0,
+        color: 'yellow',
+        dashArray: '',
+        fillOpacity: 0
+      });
+    }
 
      // fit map bounds to extent of neighborhoods and limit zoom
      map.fitBounds(neighborhoods.getBounds());
@@ -77,7 +107,7 @@
 
 
      L.geoJson(parks, {
-       style: parkOptions
+       style: parkOptions,
      }).addTo(map);
 
      L.geoJson(bikeRoutes, {
@@ -109,6 +139,8 @@
           layer.bindTooltip('<h4>' + title + '</h4>');
        }
      });
+
+     
 
      markers.addLayer(artLayer);
 
