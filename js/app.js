@@ -95,12 +95,18 @@
            fillOpacity: 1
           }).addTo(map);
        },
-       filter: function(feature) {
+       filter: function (feature) {
          // filter some out to narrow map focus
          if (feature.properties.classifica != "Environments" ||
             feature.properties.classifica != "Environment" ||
             feature.properties.classifica != "Infrastructure"
             ) return feature
+       },
+       onEachFeature: function (feature, layer) {
+          var props = feature.properties,
+              title = props.title
+
+          layer.bindTooltip('<h4>' + title + '</h4>');
        }
      });
 
