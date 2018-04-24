@@ -82,7 +82,6 @@
 
      map.addLayer(markers);
 
-
    }
 
  })();
