@@ -27,20 +27,17 @@
       opacity: .7
     }
 
-var bikeOptions = {
-  color: '#f18d00',
-  weight: 2,
-  opacity: .8
-}
+    var bikeOptions = {
+      color: '#f18d00',
+      weight: 2,
+      opacity: .8
+    }
 
    $.when(
-     $.getJSON('data/public-art.json'),
      $.getJSON('data/seattle-neighborhoods-clipped.geojson'),
      $.getJSON('data/seattle-parks.json'),
      $.getJSON('data/bike-routes.json'),
-   ).done(function (publicArt, seattleNeighborhoods, parks, bikeRoutes) {
-
-     L.geoJson(publicArt).addTo(map);
+   ).done(function (seattleNeighborhoods, parks, bikeRoutes) {
 
      L.geoJson(parks, {
       style: parkOptions}).addTo(map);
@@ -51,7 +48,16 @@ var bikeOptions = {
      L.geoJson(bikeRoutes, {
        style: bikeOptions}).addTo(map);
 
+   });
+var markers = L.markerClusterGroup();
 
+   $.when(
+    $.getJSON('data/public-art.json'),
+   ).done(function (publicArt) {
+      var artLayer = L.geoJson(publicArt);
+
+      markers.addLayer(artLayer);
+      map.addLayer(markers);
    });
 
    L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
