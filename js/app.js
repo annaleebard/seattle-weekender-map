@@ -2,7 +2,8 @@
 
   var options = {
     zoomSnap: .1,
-    zoomDelta: .5
+    zoomDelta: .5,
+    zoom: 1
   };
 
   //var map = L.map('map', options);
@@ -205,17 +206,17 @@ L.control.layers(baseMaps).addTo(map);
     //console.log(type)
 
     var colorMap = {
-      'Sculpture': 'green',
-      'Sculptures': 'green',
-      'Mural': 'black',
-      'Sound Installation': 'blue',
-      'Structure': 'purple'
+      'Sculpture': '#2b83ba',
+      'Sculptures': '#018571',
+      'Totem Pole': '#ed4949',
+      'Monument': '#3d3939',
+      'Structure': '#d6ca24'
     }
     if (colorMap[type]) {
       return colorMap[type]
     }
 
-    return 'yellow'
+    return ''
   }
 
   
